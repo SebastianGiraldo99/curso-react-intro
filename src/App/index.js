@@ -1,14 +1,28 @@
 // import logo from './platzi.webp';
 
-import { useLocalStorage } from './unseLocalStorage';
+import { useLocalStorage } from './useLocalStorage';
 import React from 'react';
 import { AppUI } from './AppUI';
+
+// const defaultTodos = [
+//   {text : 'Madrugar', completed: true},
+//   {text : 'Bañarse', completed: true},
+//   {text : 'Trabajar', completed: false},
+//   {text : 'Ir a cortarse el pelo', completed: false},
+//   {text : 'Dormir', completed: false}
+// ];
+// localStorage.setItem('TODOS_V1', JSON.stringify(defaultTodos));
+// localStorage.removeItem('TODOS_V1');
 
 
 function App() {
   
   
-  const [todos, saveTodos] = useLocalStorage('TODOS_V1', []);
+  const {
+    item : todos,
+    saveItem : saveTodos,
+    loading,
+    error} = useLocalStorage('TODOS_V1', []);
   const [searchValue, setSearchValue] = React.useState('');
   
   const completedTodos = todos.filter(todo=> !!todo.completed).length;
@@ -41,6 +55,8 @@ function App() {
       todoSearched={todoSearched}
       completeTodo={completeTodo}
       deleteTodo={deleteTodo}
+      loading = {loading}
+      error = {error}
      />
   );
   

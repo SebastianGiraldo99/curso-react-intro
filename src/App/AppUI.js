@@ -2,7 +2,10 @@ import { TodoCounter } from '../TodoCounter';
 import { TodoSearch } from '../TodoSearch';
 import { TodoList } from '../TodoList';
 import { TodoItem } from '../TodoItem';
+import {TodoLoading} from '../TodosLoading';
 import { CreateTodoButton } from '../CreateTodoButton';
+import { TodoError } from '../TodosError';
+import { EmptyTodo } from '../EmptyTodos';
 function AppUI({
     totalTodos,
     completedTodos,
@@ -11,6 +14,8 @@ function AppUI({
     todoSearched,
     completeTodo,
     deleteTodo,
+    loading,
+    error,
 }){
     return (
         <> {/*Empaquetador de componentes en react*/}
@@ -22,6 +27,10 @@ function AppUI({
           />
     
           <TodoList>
+            {loading && <TodoLoading/>} 
+            {error && <TodoError/>} 
+            {(!loading && todoSearched.lenght == 0) && <EmptyTodo/>}
+            
             {todoSearched.map(todo => (
               <TodoItem key={todo.text} text={todo.text} completed={todo.completed}
               onComplete={() => completeTodo(todo.text)}
