@@ -1,12 +1,17 @@
+import React from 'react';
 import './TodoCounter.css';
-function TodoCounter({total, completed}){  // Las props son recibidas como objeto
+import { TodoContex } from '../TodoContex';
+function TodoCounter(){
+    const {totalTodos,
+        completedTodos,} = React.useContext(TodoContex)
+
     return (
-        total == completed ? 
+        totalTodos == completedTodos ? 
         <h1>
             Congrats you have completed all todos
         </h1> :
         <h1>
-            You has been completed {completed} of {total} task
+            You has been completed {completedTodos} of {totalTodos} task
         </h1>
     );
 }

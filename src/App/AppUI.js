@@ -6,38 +6,38 @@ import {TodoLoading} from '../TodosLoading';
 import { CreateTodoButton } from '../CreateTodoButton';
 import { TodoError } from '../TodosError';
 import { EmptyTodo } from '../EmptyTodos';
+import { TodoContex } from '../TodoContex';
+
+
 function AppUI({
-    totalTodos,
-    completedTodos,
-    searchValue,
-    setSearchValue,
-    todoSearched,
-    completeTodo,
-    deleteTodo,
-    loading,
-    error,
 }){
     return (
         <> {/*Empaquetador de componentes en react*/}
     
-          <TodoCounter total={totalTodos} completed={completedTodos} /> {/** Asi se envian las props.*/}
-          <TodoSearch 
-          searchValue={searchValue} 
-          setSearchValue={setSearchValue}
-          />
-    
-          <TodoList>
-            {loading && <TodoLoading/>} 
-            {error && <TodoError/>} 
-            {(!loading && todoSearched.lenght == 0) && <EmptyTodo/>}
-            
-            {todoSearched.map(todo => (
-              <TodoItem key={todo.text} text={todo.text} completed={todo.completed}
-              onComplete={() => completeTodo(todo.text)}
-              onDelete={() => deleteTodo(todo.text)}/>
-            ))}
-          </TodoList>
-    
+          <TodoCounter/> {/** Asi se envian las props.*/}
+          <TodoSearch />
+          {/*Otra forma de enviar props usando el contexto - Es mejor el useContext */}
+          <TodoContex.Consumer> 
+            {({
+              todoSearched,
+              completeTodo,
+              deleteTodo,
+              loading,
+              error,
+            })=>(
+              <TodoList>
+              {loading && <TodoLoading/>} 
+              {error && <TodoError/>} 
+              {(!loading && todoSearched.length == 0) && <EmptyTodo/>}
+              
+              {todoSearched.map(todo => (
+                <TodoItem key={todo.text} text={todo.text} completed={todo.completed}
+                onComplete={() => completeTodo(todo.text)}
+                onDelete={() => deleteTodo(todo.text)}/>
+              ))}
+            </TodoList>
+            )}
+          </TodoContex.Consumer>
           <CreateTodoButton/>
           </>
     );

@@ -1,6 +1,9 @@
 import React from "react";
 import './TodoSearch.css';
-function TodoSearch({searchValue, setSearchValue}){
+import { TodoContex } from "../TodoContex";
+function TodoSearch(){
+
+    const {searchValue,setSearchValue }=React.useContext(TodoContex); //uso de Contex para acceder a las props generales
     //Se debe definir el nombre del estado 
     //Se debe definir el nombre de la funcion Set siempre con el nombre del estado
     //Dentro de la funcion useState() se pude definir un estado inicial;
