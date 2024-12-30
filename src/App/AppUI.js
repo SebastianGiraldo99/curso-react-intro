@@ -6,25 +6,29 @@ import {TodoLoading} from '../TodosLoading';
 import { CreateTodoButton } from '../CreateTodoButton';
 import { TodoError } from '../TodosError';
 import { EmptyTodo } from '../EmptyTodos';
+import React from 'react';
+import { Modal } from '../Modal';
 import { TodoContex } from '../TodoContex';
+import { TodoForm } from '../TodoForm';
 
 
 function AppUI({
 }){
+  const {
+    todoSearched,
+    completeTodo,
+    deleteTodo,
+    loading,
+    error,
+    openModal,
+    setOpenModal,
+    } = React.useContext(TodoContex);
     return (
         <> {/*Empaquetador de componentes en react*/}
     
           <TodoCounter/> {/** Asi se envian las props.*/}
           <TodoSearch />
           {/*Otra forma de enviar props usando el contexto - Es mejor el useContext */}
-          <TodoContex.Consumer> 
-            {({
-              todoSearched,
-              completeTodo,
-              deleteTodo,
-              loading,
-              error,
-            })=>(
               <TodoList>
               {loading && <TodoLoading/>} 
               {error && <TodoError/>} 
@@ -36,9 +40,14 @@ function AppUI({
                 onDelete={() => deleteTodo(todo.text)}/>
               ))}
             </TodoList>
+            {openModal && (
+              <Modal>
+                <TodoForm/>
+              </Modal>
             )}
-          </TodoContex.Consumer>
-          <CreateTodoButton/>
+          <CreateTodoButton 
+          setOpenModal={setOpenModal}
+          openModal={openModal}/>
           </>
     );
 }
