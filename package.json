@@ -11,6 +11,8 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
+    "predeploy":"npm run build",
+    "deploy": "gh-pages -d build",
     "eject": "react-scripts eject"
   },
   "browserslist": {
@@ -28,6 +30,8 @@
   "devDependencies": {
     "eslint": "^8.57.1",
     "eslint-config-react-app": "^7.0.1",
-    "eslint-webpack-plugin": "^4.2.0"
-  }
+    "eslint-webpack-plugin": "^4.2.0",
+    "gh-pages": "^6.2.0"
+  },
+  "homepage": "htts://SebastianGiraldo99.github.io/curso-react-intro"
 }
